@@ -1,0 +1,46 @@
+---
+import {
+	contentWidth,
+	basePadding,
+	textColor,
+	backgroundColor,
+} from "../colors";
+
+const links = ["blythe", "about", "skills", "experiences", "projects", "blog"];
+---
+
+<nav class="white-box">
+	<ul>
+		{links.map((link) => (
+			<li>
+				<a href={`#${link}`}>{link}</a>
+			</li>
+		))}
+	</ul>
+</nav>
+
+<style define:vars={{ contentWidth, basePadding, textColor, backgroundColor }}>
+	nav {
+		background-color: var(--textColor);
+
+		width: var(--contentWidth);
+		padding: var(--basePadding);
+
+		margin-top: 32px;
+	}
+
+	a {
+		color: var(--backgroundColor);
+	}
+
+	ul {
+		display: flex;
+		justify-content: center;
+
+		gap: 16px;
+	}
+
+	ul > li {
+		list-style: none;
+	}
+</style>

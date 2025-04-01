@@ -1,0 +1,12 @@
+---
+import type { TechName } from "../tech";
+import { TechMap } from "../tech";
+
+interface Props {
+	techName: TechName;
+}
+
+const { techName } = Astro.props;
+---
+
+<img width="100%" src={TechMap[techName].logo} alt={TechMap[techName].alt} />

@@ -1,0 +1,81 @@
+---
+import { contentWidth, basePadding, textColor } from "../colors";
+
+import Navbar from "../components/Navbar.astro";
+---
+
+<div id="container">
+	<Navbar />
+
+	<main>
+		<slot></slot>
+	</main>
+</div>
+
+<style define:vars={{ contentWidth, basePadding, textColor }}>
+	#container {
+		font-family: Inter, Roboto, "Helvetica Neue", "Arial Nova",
+			"Nimbus Sans", Arial, sans-serif;
+
+		display: flex;
+		flex-direction: column;
+
+		align-items: center;
+		justify-content: center;
+	}
+
+	main {
+		width: var(--contentWidth);
+
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+
+		padding: var(--basePadding);
+	}
+
+	@media screen and (max-height: 368px) {
+	}
+
+	@media screen and (max-width: 768px) {
+	}
+</style>
+
+<style is:global>
+	h1 {
+		font-size: 156px;
+		margin: 0px;
+	}
+
+	h2 {
+		font-size: 56px;
+		margin: 0px;
+
+		text-transform: capitalize;
+
+		border-bottom: 4px dotted var(--textColor);
+		width: fit-content;
+	}
+
+	h3 {
+		font-weight: bold;
+		font-size: 32px;
+		margin: 0px;
+	}
+
+	h4 {
+		font-weight: bold;
+		font-size: 22px;
+		margin: 0px;
+	}
+
+	h5 {
+		font-size: 18px;
+		margin: 0px;
+	}
+
+	p {
+		font-weight: 300;
+		letter-spacing: 1px;
+	}
+</style>

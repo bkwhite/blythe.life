@@ -1,0 +1,43 @@
+---
+import TechLogo from "./TechLogo.astro";
+
+interface Props {
+	size?: "small" | "large";
+}
+
+const { size } = Astro.props;
+---
+
+<div
+	class:list={[
+		"skills-container",
+		{ small: size === "small", large: size === "large" },
+	]}>
+	<TechLogo techName="typescript" />
+	<TechLogo techName="typescript" />
+	<TechLogo techName="typescript" />
+	<TechLogo techName="typescript" />
+</div>
+
+<style is:global>
+	.skills-container {
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr 1fr;
+		gap: 16px;
+	}
+
+	.skills-container.small {
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-start;
+		gap: 16px;
+		width: 100%;
+	}
+
+	.skills-container.small > img {
+		width: 50px;
+	}
+
+	.skills-container.large > img {
+	}
+</style>
