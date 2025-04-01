@@ -10,3 +10,9 @@ const { techName } = Astro.props;
 ---
 
 <img width="100%" src={TechMap[techName].logo} alt={TechMap[techName].alt} />
+
+<style>
+	img {
+		opacity: 0.8;
+	}
+</style>

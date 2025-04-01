@@ -1,7 +1,6 @@
 ---
 import type { MarkdownInstance } from "astro";
 import type { TechName } from "../tech";
-import type Experience from "../components/Experience.astro";
 
 import SiteSection from "../components/SiteSection.astro";
 import SkillsContainer from "../components/SkillsContainer.astro";
@@ -27,6 +26,14 @@ const experiencesList = experiences.map((experience) => {
 		endYear: frontmatter.endYear,
 	};
 });
+
+const formatYearRange = (exp: Experience) => {
+	if (exp.startYear === exp.endYear) {
+		return `「 ${exp.startYear} 」`;
+	}
+
+	return `「 ${exp.startYear} - ${exp.endYear} 」`;
+};
 ---
 
 <SiteSection sectionName="experiences">
@@ -40,19 +47,20 @@ const experiencesList = experiences.map((experience) => {
 
 	<div class="experiences">
 		{experiences
-			.sort((a, b) => a.frontmatter.startYear - b.frontmatter.startYear)
+			.sort((a, b) => b.frontmatter.startYear - a.frontmatter.startYear)
 			.map(({ Content, ...exp }, index) => {
 				return (
 					<div class="experience">
 						<div class="title">
 							<h3>{exp.frontmatter.company}</h3>
-							<h5>
-								{`(${exp.frontmatter.startYear} - ${exp.frontmatter.endYear})`}
-							</h5>
+							<h5>{formatYearRange(exp.frontmatter)}</h5>
 						</div>
 						<h4>{exp.frontmatter.title}</h4>
 						<Content />
-						<SkillsContainer size="small" />
+						<SkillsContainer
+							size="small"
+							techStack={exp.frontmatter.techStack}
+						/>
 
 						<span class="year-tag">
 							{exp.frontmatter.startYear}

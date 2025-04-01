@@ -1,40 +1,30 @@
 ---
+import type { MarkdownInstance } from "astro";
+import type { TechName } from "../tech";
+
 import SiteSection from "../components/SiteSection.astro";
 import SkillsContainer from "../components/SkillsContainer.astro";
-import TechLogo from "../components/TechLogo.astro";
+
+interface Skill {
+	title: "Love";
+	techStack: TechName[];
+}
+
+const skills = Object.values(
+	import.meta.glob("../content/skills/*.md", { eager: true })
+) as MarkdownInstance<Skill>[];
+
+console.log(skills);
 ---
 
 <SiteSection sectionName="skills">
-	<p>
-		About text will go here and I will talk about myself. About text will go
-		here and I will talk about myself. About text will go here and I will
-		talk about myself. About text will go here and I will talk about myself.
-		About text will go here and I will talk about myself. About text will go
-		here and I will talk about myself.
-	</p>
-	<SkillsContainer size="large" />
-	<p>
-		About text will go here and I will talk about myself. About text will go
-		here and I will talk about myself. About text will go here and I will
-		talk about myself. About text will go here and I will talk about myself.
-		About text will go here and I will talk about myself. About text will go
-		here and I will talk about myself.
-	</p>
-	<SkillsContainer size="large" />
-	<p>
-		About text will go here and I will talk about myself. About text will go
-		here and I will talk about myself. About text will go here and I will
-		talk about myself. About text will go here and I will talk about myself.
-		About text will go here and I will talk about myself. About text will go
-		here and I will talk about myself.
-	</p>
-	<SkillsContainer size="large" />
-	<p>
-		About text will go here and I will talk about myself. About text will go
-		here and I will talk about myself. About text will go here and I will
-		talk about myself. About text will go here and I will talk about myself.
-		About text will go here and I will talk about myself. About text will go
-		here and I will talk about myself.
-	</p>
-	<SkillsContainer size="large" />
+	{skills.map(({ Content, ...skill }) => (
+		<>
+			<Content />
+			<SkillsContainer
+				size="large"
+				techStack={skill.frontmatter.techStack}
+			/>
+		</>
+	))}
 </SiteSection>

@@ -1,5 +1,66 @@
 ---
+import type { ImageMetadata, MarkdownInstance } from "astro";
+
 import SiteSection from "../components/SiteSection.astro";
+
+interface Project {
+	company: string;
+	type: string;
+	image: string;
+}
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+	"/src/assets/projects/*.png"
+);
+
+const projects = Object.values(
+	import.meta.glob("../content/projects/*.md", { eager: true })
+) as MarkdownInstance<Project>[];
+
+const getFullImagePath = (image: string) => {
+	const path = Object.keys(images).find((key) => key.includes(image));
+
+	if (!path) {
+		//console.error(Error(`Image ${image} not found`));
+		return null;
+	}
+
+	return path;
+};
 ---
 
-<SiteSection sectionName="projects">solkfdhskfhsd</SiteSection>
+<SiteSection sectionName="projects"
+	>{projects.map(({ Content, ...project }) => (
+		<div>
+			<h3>{project.frontmatter.company}</h3>
+			<h5>{project.frontmatter.type}</h5>
+			<Content />
+			<img
+				src={`${getFullImagePath(project.frontmatter.image)}`}
+				alt={project.frontmatter.company}
+			/>
+		</div>
+	))}
+</SiteSection>
+
+<style>
+	img {
+		max-width: 100%;
+		box-shadow: white 0 0 10px;
+
+		animation: shadows 10s infinite;
+		border-radius: 12px;
+	}
+
+	@keyframes shadows {
+		0% {
+			box-shadow: darkgray 0 0 10px;
+		}
+		50% {
+			box-shadow: #dca1a1 0 0 10px;
+		}
+		100% {
+			box-shadow: darkgray 0 0 10px;
+		}
+	}
+</style>

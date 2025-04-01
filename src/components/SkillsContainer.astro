@@ -1,11 +1,14 @@
 ---
+import type { TechName } from "../tech";
+
 import TechLogo from "./TechLogo.astro";
 
 interface Props {
 	size?: "small" | "large";
+	techStack: TechName[];
 }
 
-const { size } = Astro.props;
+const { size, techStack } = Astro.props;
 ---
 
 <div
@@ -13,10 +16,7 @@ const { size } = Astro.props;
 		"skills-container",
 		{ small: size === "small", large: size === "large" },
 	]}>
-	<TechLogo techName="typescript" />
-	<TechLogo techName="typescript" />
-	<TechLogo techName="typescript" />
-	<TechLogo techName="typescript" />
+	{(techStack || []).map((techName) => <TechLogo techName={techName} />)}
 </div>
 
 <style is:global>
