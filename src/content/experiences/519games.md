@@ -5,4 +5,4 @@ startYear: 2012
 endYear: 2012
 techStack: ["jenkins", "xml"]
 ---
-About text will go here and I will talk about myself. About text will go here and I will talk about myself. About text will go here and I will talk about myself. About text will go here and I will talk about myself. About text will go here and I will talk about myself. About text will go here and I will talk about myself.
+During the summer before my senior year of high school, I had an internship at 519 Games in Durham, NC.  I was responsible for creating build scripts in **XML** that were used in a continuous integration system.
