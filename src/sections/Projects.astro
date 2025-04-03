@@ -1,6 +1,8 @@
 ---
 import type { ImageMetadata, MarkdownInstance } from "astro";
 
+import { Image } from "astro:assets";
+
 import SiteSection from "../components/SiteSection.astro";
 
 interface Project {
@@ -22,14 +24,16 @@ const projects = (
 	) as MarkdownInstance<Project>[]
 ).filter((p) => p.frontmatter.hidden !== true);
 
-const getFullImagePath = (image: string) => {
-	const path = Object.keys(images).find((key) => key.includes(image));
+console.log(images);
 
-	if (!path) {
+const getImage = (image: string) => {
+	const key = Object.keys(images).find((key) => key.includes(image));
+
+	if (!key) {
 		return null;
 	}
 
-	return path;
+	return images[key];
 };
 ---
 
@@ -45,24 +49,29 @@ const getFullImagePath = (image: string) => {
 			<h5>{project.frontmatter.type}</h5>
 			<Content />
 			<div class="image-container">
-				{project.frontmatter.images.map((image) => (
-					<img
-						style={`box-shadow: ${project.frontmatter.highlightColor} 0 0 16px;`}
-						src={`${getFullImagePath(image)}`}
-						alt={project.frontmatter.company}
-					/>
-				))}
+				{project.frontmatter.images.map((image) => {
+					const gotImage = getImage(image)
+
+					if (!gotImage) return null
+
+					return (
+						<Image
+							class="project-image"
+							style={`box-shadow: ${project.frontmatter.highlightColor} 0 0 16px; height: auto;`}
+							src={gotImage()}
+							alt={project.frontmatter.company}
+						/>
+					)
+				})}
 			</div>
 		</div>
 	))}
 </SiteSection>
 
 <style>
-	img {
+	.project-image {
 		animation: shadows 10s infinite;
 		border-radius: 12px;
-
-		object-fit: contain;
 		width: 100%;
 	}
 
