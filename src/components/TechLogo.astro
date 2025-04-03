@@ -9,10 +9,18 @@ interface Props {
 const { techName } = Astro.props;
 ---
 
-<img width="100%" src={TechMap[techName].logo} alt={TechMap[techName].alt} />
+<img
+	width="100%"
+	src={TechMap[techName].logo}
+	alt={TechMap[techName].alt}
+	style={`box-shadow: 0 0 12px ${
+		TechMap[techName].highlightColor || "#FFF"
+	};`}
+/>
 
 <style>
 	img {
 		opacity: 0.8;
+		border-radius: 4px;
 	}
 </style>

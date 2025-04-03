@@ -1,10 +1,94 @@
-<section id="blythe">
-	<h1>Blythe White</h1>
-	<p>
-		About text will go here and I will talk about myself. About text will go
-		here and I will talk about myself. About text will go here and I will
-		talk about myself. About text will go here and I will talk about myself.
-		About text will go here and I will talk about myself. About text will go
-		here and I will talk about myself.
-	</p>
-</section>
+---
+import SiteSection from "../components/SiteSection.astro";
+
+import * as blythe from "../content/blythe.md";
+
+const { Content } = blythe;
+---
+
+<script>
+	const nextSectionLink = document.getElementById("next-section-link");
+
+	if (nextSectionLink) {
+		nextSectionLink.addEventListener("click", (e) => {
+			e.preventDefault();
+
+			const skillsSection = document.querySelector("#skills");
+
+			if (skillsSection) {
+				skillsSection.scrollIntoView({ behavior: "smooth" });
+			}
+		});
+	}
+</script>
+
+<SiteSection sectionName="blythe" noHeading>
+	<div class="blythe-container">
+		<span class="hello">Hi there! I'm</span>
+		<h1>Blythe,</h1>
+		<h2>a <u>lovely</u> experience engineer.</h2>
+		<Content />
+		<a id="next-section-link" href="#">↓</a>
+	</div>
+</SiteSection>
+
+<style>
+	h1 {
+		background: #ffffff;
+		background: linear-gradient(to right, #aaaaaa 0%, #ffffff 100%);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
+
+	h2 {
+		border-bottom: 0;
+		text-transform: unset;
+
+		background: #ffffff;
+		background: linear-gradient(to right, #ffffff 0%, #888888 100%);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
+
+	.blythe-container {
+		text-align: center;
+		padding-top: calc(var(--basePadding) * 4);
+		min-height: 100vh;
+		font-size: 24px;
+	}
+
+	.hello {
+		font-family: "Funnel Display Variable", system-ui;
+		font-size: 2rem;
+	}
+
+	a {
+		color: white;
+		font-size: 4rem;
+		animation: bounce 5s infinite;
+	}
+
+	@keyframes bounce {
+		0%,
+		20%,
+		50%,
+		80%,
+		100% {
+			font-size: 4rem;
+		}
+		40%,
+		60% {
+			font-size: 5rem;
+		}
+	}
+
+	@media screen and (max-width: 800px) {
+		h2 {
+			font-size: 1.5rem;
+		}
+
+		.blythe-container {
+			font-size: 18px;
+		}
+	}
+</style>

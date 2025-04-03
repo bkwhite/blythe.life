@@ -13,8 +13,6 @@ interface Skill {
 const skills = Object.values(
 	import.meta.glob("../content/skills/*.md", { eager: true })
 ) as MarkdownInstance<Skill>[];
-
-console.log(skills);
 ---
 
 <SiteSection sectionName="skills">

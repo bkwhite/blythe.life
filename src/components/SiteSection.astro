@@ -1,12 +1,31 @@
 ---
 interface Props {
 	sectionName: string;
+	noHeading?: boolean;
 }
 
-const { sectionName } = Astro.props;
+const { sectionName, noHeading } = Astro.props;
 ---
 
 <section id={sectionName}>
-	<h2>{sectionName}</h2>
+	{noHeading ? null : <h2>#{sectionName}</h2>}
 	<slot></slot>
 </section>
+
+<style>
+	section {
+		margin-bottom: 32px;
+		padding: 0 var(--basePadding);
+	}
+
+	h2 > span {
+		text-transform: capitalize;
+	}
+
+	/* iPhone SE */
+	@media screen and (max-width: 800px) {
+		section {
+			padding: calc(var(--basePadding) * 3);
+		}
+	}
+</style>

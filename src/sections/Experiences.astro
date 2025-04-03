@@ -1,111 +1,13 @@
 ---
-import type { MarkdownInstance } from "astro";
-import type { TechName } from "../tech";
-
 import SiteSection from "../components/SiteSection.astro";
-import SkillsContainer from "../components/SkillsContainer.astro";
+import ExperiencesContainer from "../components/ExperiencesContainer.astro";
 
-interface Experience {
-	company: string;
-	title: string;
-	startYear: number;
-	endYear: number;
-	techStack: TechName[];
-}
+import * as intro from "../content/experiences.md";
 
-const experiences = Object.values(
-	import.meta.glob("../content/experiences/*.md", { eager: true })
-) as MarkdownInstance<Experience>[];
-
-const experiencesList = experiences.map((experience) => {
-	const { frontmatter, Content } = experience;
-	return {
-		title: frontmatter.title,
-		company: frontmatter.company,
-		startYear: frontmatter.startYear,
-		endYear: frontmatter.endYear,
-	};
-});
-
-const formatYearRange = (exp: Experience) => {
-	if (exp.startYear === exp.endYear) {
-		return `「 ${exp.startYear} 」`;
-	}
-
-	return `「 ${exp.startYear} - ${exp.endYear} 」`;
-};
+const { Content } = intro;
 ---
 
 <SiteSection sectionName="experiences">
-	<p>
-		About text will go here and I will talk about myself. About text will go
-		here and I will talk about myself. About text will go here and I will
-		talk about myself. About text will go here and I will talk about myself.
-		About text will go here and I will talk about myself. About text will go
-		here and I will talk about myself.
-	</p>
-
-	<div class="experiences">
-		{experiences
-			.sort((a, b) => b.frontmatter.startYear - a.frontmatter.startYear)
-			.map(({ Content, ...exp }, index) => {
-				return (
-					<div class="experience">
-						<div class="title">
-							<h3>{exp.frontmatter.company}</h3>
-							<h5>{formatYearRange(exp.frontmatter)}</h5>
-						</div>
-						<h4>{exp.frontmatter.title}</h4>
-						<Content />
-						<SkillsContainer
-							size="small"
-							techStack={exp.frontmatter.techStack}
-						/>
-
-						<span class="year-tag">
-							{exp.frontmatter.startYear}
-						</span>
-
-						{index === experiences.length - 1 ? (
-							<span class="year-tag end">
-								{exp.frontmatter.endYear}
-							</span>
-						) : null}
-					</div>
-				)
-			})}
-	</div>
+	<Content />
+	<ExperiencesContainer />
 </SiteSection>
-
-<style>
-	.experience {
-		position: relative;
-		margin-bottom: 40px;
-	}
-
-	.title {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-	}
-
-	.year-tag {
-		position: absolute;
-		transform-origin: 0 0;
-		transform: rotate(-90deg);
-		top: 64px;
-		left: -44px;
-		padding: 4px 8px;
-
-		font-size: 18px;
-		font-weight: bold;
-
-		background: white;
-		color: black;
-	}
-
-	.year-tag.end {
-		top: unset;
-		bottom: 1;
-	}
-</style>
