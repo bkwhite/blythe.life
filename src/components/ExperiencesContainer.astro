@@ -1,0 +1,142 @@
+---
+import type { MarkdownInstance } from "astro";
+import type { TechName } from "../tech";
+
+import SkillsContainer from "../components/SkillsContainer.astro";
+
+interface Experience {
+	company: string;
+	title: string;
+	startYear: number;
+	endYear: number;
+	isEducation?: boolean;
+	techStack: TechName[];
+}
+
+const experiences = Object.values(
+	import.meta.glob("../content/experiences/*.md", { eager: true })
+) as MarkdownInstance<Experience>[];
+
+const formatYearRange = (exp: Experience) => {
+	if (exp.startYear === exp.endYear) {
+		return `「 ${exp.startYear} 」`;
+	}
+
+	return `「 ${exp.startYear} - ${exp.endYear} 」`;
+};
+---
+
+<script>
+	import type { TechName } from "../tech";
+	import { TechNames, TechMap } from "../tech";
+
+	const experiencesContainer = document.getElementById(
+		"experiences-container"
+	);
+
+	const generateGradient = (color: string) => {
+		return `
+	        text-decoration: underline;
+            text-decoration-color: ${color};
+            text-decoration-thickness: 2px;
+            text-underline-offset: 3px;
+        `;
+	};
+
+	if (experiences) {
+		const strongElements = document.getElementsByTagName("strong");
+
+		for (let e of strongElements) {
+			const text = e.innerText.toLowerCase();
+
+			if (TechNames.includes(text)) {
+				const { highlightColor } = TechMap[text as TechName];
+				e.style = generateGradient(highlightColor);
+			}
+		}
+	}
+</script>
+
+<div id="experiences-container">
+	{experiences
+		.sort((a, b) => b.frontmatter.startYear - a.frontmatter.startYear)
+		.map(({ Content, ...exp }, index) => {
+			return (
+				<div class="experience">
+					<div class="title">
+						<h3 class:list={[{ wcu: exp.frontmatter.isEducation }]}>
+							{exp.frontmatter.isEducation ? "🏫" : "🏢"}
+							{exp.frontmatter.company}
+						</h3>
+
+						<h5>{formatYearRange(exp.frontmatter)}</h5>
+					</div>
+					<h4>{exp.frontmatter.title}</h4>
+					<Content />
+					<SkillsContainer
+						size="small"
+						techStack={exp.frontmatter.techStack}
+					/>
+
+					{exp.frontmatter.startYear !== exp.frontmatter.endYear ? (
+						<span class="year-tag">{exp.frontmatter.endYear}</span>
+					) : null}
+
+					{index === experiences.length - 1 ? (
+						<span class="year-tag end">
+							{exp.frontmatter.startYear}
+						</span>
+					) : null}
+				</div>
+			)
+		})}
+</div>
+
+<style>
+	.experience {
+		position: relative;
+		margin-bottom: 40px;
+	}
+
+	.title {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	.year-tag {
+		position: absolute;
+		transform-origin: 0 0;
+		transform: rotate(-90deg);
+		top: 68px;
+		left: -44px;
+		padding: 4px 8px;
+
+		font-size: 18px;
+		font-weight: bold;
+
+		background: white;
+		color: black;
+	}
+
+	.year-tag.end {
+		top: unset;
+		bottom: -30px;
+	}
+
+	.wcu {
+		position: relative;
+		color: #7f5fbc;
+	}
+
+	@media screen and (max-width: 800px) {
+		.title {
+			flex-direction: column-reverse;
+			align-items: flex-start;
+		}
+
+		.year-tag {
+			display: none;
+		}
+	}
+</style>

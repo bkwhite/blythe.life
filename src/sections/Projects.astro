@@ -1,5 +1,83 @@
 ---
+import type { ImageMetadata, MarkdownInstance } from "astro";
+
 import SiteSection from "../components/SiteSection.astro";
+
+interface Project {
+	company: string;
+	type: string;
+	link: string;
+	images: string[];
+	highlightColor: string;
+	hidden?: boolean;
+}
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+	"/src/assets/projects/*.png"
+);
+
+const projects = (
+	Object.values(
+		import.meta.glob("../content/projects/*.md", { eager: true })
+	) as MarkdownInstance<Project>[]
+).filter((p) => p.frontmatter.hidden !== true);
+
+const getFullImagePath = (image: string) => {
+	const path = Object.keys(images).find((key) => key.includes(image));
+
+	if (!path) {
+		return null;
+	}
+
+	return path;
+};
 ---
 
-<SiteSection sectionName="projects">solkfdhskfhsd</SiteSection>
+<SiteSection sectionName="projects"
+	>{projects.map(({ Content, ...project }) => (
+		<div class="project">
+			<a
+				href={project.frontmatter.link}
+				target="_blank"
+				rel="noopener noreferrer">
+				<h3>🔗 {project.frontmatter.company}</h3>
+			</a>
+			<h5>{project.frontmatter.type}</h5>
+			<Content />
+			<div class="image-container">
+				{project.frontmatter.images.map((image) => (
+					<img
+						style={`box-shadow: ${project.frontmatter.highlightColor} 0 0 16px;`}
+						src={`${getFullImagePath(image)}`}
+						alt={project.frontmatter.company}
+					/>
+				))}
+			</div>
+		</div>
+	))}
+</SiteSection>
+
+<style>
+	img {
+		animation: shadows 10s infinite;
+		border-radius: 12px;
+
+		object-fit: contain;
+		width: 100%;
+	}
+
+	a {
+		color: unset;
+	}
+
+	.project {
+		margin-bottom: calc(var(--basePadding) * 4);
+	}
+
+	.image-container {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 16px;
+		width: 100%;
+	}
+</style>

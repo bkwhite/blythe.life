@@ -1,4 +1,7 @@
 ---
+import githubIcon from "../assets/github.svg";
+import linkedinIcon from "../assets/linkedin.svg";
+
 import {
 	contentWidth,
 	basePadding,
@@ -6,41 +9,130 @@ import {
 	backgroundColor,
 } from "../colors";
 
-const links = ["blythe", "about", "skills", "experiences", "projects", "blog"];
+const links = [
+	{ label: "blythe", href: "#blythe" },
+	{ label: "skills", href: "#skills" },
+	{ label: "experiences", href: "#experiences" },
+	{ label: "projects", href: "#projects" },
+	{ label: "blog", href: "https://blyte.town" },
+];
 ---
 
-<nav class="white-box">
+<nav class="white-box glow">
 	<ul>
 		{links.map((link) => (
 			<li>
-				<a href={`#${link}`}>{link}</a>
+				{link.href.includes("#") ? (
+					<a href={link.href} class="text-link">
+						{link.label}
+					</a>
+				) : (
+					<a
+						href={`${link.href}`}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="text-link">
+						{link.label}
+					</a>
+				)}
 			</li>
 		))}
+		<li>
+			<a
+				href="https://github.com/bkwhite"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="icon-link">
+				<img src={githubIcon.src} alt="GitHub" />
+			</a>
+		</li>
+		<li>
+			<a
+				href="https://linkedin.com/in/blythewhite/"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="icon-link">
+				<img src={linkedinIcon.src} alt="LinkedIn" />
+			</a>
+		</li>
+		<a class="resume-button" href="/blythe.white.pdf" target="_blank"
+			>resume ▼
+		</a>
 	</ul>
 </nav>
 
 <style define:vars={{ contentWidth, basePadding, textColor, backgroundColor }}>
 	nav {
 		background-color: var(--textColor);
-
-		width: var(--contentWidth);
-		padding: var(--basePadding);
-
-		margin-top: 32px;
-	}
-
-	a {
-		color: var(--backgroundColor);
+		width: 100%;
 	}
 
 	ul {
 		display: flex;
 		justify-content: center;
-
-		gap: 16px;
+		align-items: center;
+		gap: 24px;
+		padding-inline-start: 0;
 	}
 
 	ul > li {
 		list-style: none;
+		font-weight: 500;
+		margin: 0;
+	}
+
+	li > a > img {
+		width: 24px;
+	}
+
+	a {
+		color: var(--backgroundColor);
+		position: relative;
+	}
+
+	.text-link:hover::before {
+		position: absolute;
+		content: "";
+		border-bottom: 4px solid var(--backgroundColor);
+		bottom: -8px;
+		animation: underline-anime 0.4s;
+		width: 100%;
+	}
+
+	.icon-link {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.resume-button {
+		background-color: var(--backgroundColor);
+		color: var(--textColor);
+		padding: 8px 16px;
+		border-radius: 4px;
+		text-decoration: none;
+		font-weight: bold;
+	}
+
+	@keyframes underline-anime {
+		0% {
+			width: 0%;
+		}
+
+		100% {
+			width: 100%;
+		}
+	}
+
+	/* iPhone SE */
+	@media screen and (max-width: 800px) {
+		nav {
+			width: 100%;
+		}
+
+		ul {
+			flex-wrap: wrap;
+			padding: var(--basePadding);
+		}
 	}
 </style>

@@ -1,11 +1,14 @@
 ---
+import type { TechName } from "../tech";
+
 import TechLogo from "./TechLogo.astro";
 
 interface Props {
 	size?: "small" | "large";
+	techStack: TechName[];
 }
 
-const { size } = Astro.props;
+const { size, techStack } = Astro.props;
 ---
 
 <div
@@ -13,10 +16,7 @@ const { size } = Astro.props;
 		"skills-container",
 		{ small: size === "small", large: size === "large" },
 	]}>
-	<TechLogo techName="typescript" />
-	<TechLogo techName="typescript" />
-	<TechLogo techName="typescript" />
-	<TechLogo techName="typescript" />
+	{(techStack || []).map((techName) => <TechLogo techName={techName} />)}
 </div>
 
 <style is:global>
@@ -24,20 +24,19 @@ const { size } = Astro.props;
 		display: grid;
 		grid-template-columns: 1fr 1fr 1fr 1fr;
 		gap: 16px;
+		margin-bottom: calc(var(--basePadding) * 2);
 	}
 
 	.skills-container.small {
 		display: flex;
 		flex-direction: row;
 		justify-content: flex-start;
-		gap: 16px;
+		flex-wrap: wrap;
+		gap: 12px;
 		width: 100%;
 	}
 
 	.skills-container.small > img {
-		width: 50px;
-	}
-
-	.skills-container.large > img {
+		width: 46px;
 	}
 </style>
