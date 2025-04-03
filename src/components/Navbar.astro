@@ -55,6 +55,9 @@ const links = [
 				<img src={linkedinIcon.src} alt="LinkedIn" />
 			</a>
 		</li>
+		<a class="resume-button" href="/blythe.white.pdf" target="_blank"
+			>resume ▼
+		</a>
 	</ul>
 </nav>
 
@@ -100,6 +103,15 @@ const links = [
 		display: flex;
 		align-items: center;
 		justify-content: center;
+	}
+
+	.resume-button {
+		background-color: var(--backgroundColor);
+		color: var(--textColor);
+		padding: 8px 16px;
+		border-radius: 4px;
+		text-decoration: none;
+		font-weight: bold;
 	}
 
 	@keyframes underline-anime {
