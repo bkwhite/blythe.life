@@ -1,6 +1,7 @@
 import astroLogo from "./assets/astro.svg";
 import awsLogo from "./assets/aws.svg";
 import bevyLogo from "./assets/bevy.svg";
+import cypressLogo from "./assets/cypress.svg";
 import d3Logo from "./assets/d3.svg";
 import expressLogo from "./assets/express.svg";
 import javaLogo from "./assets/java.svg";
@@ -8,6 +9,7 @@ import jenkinsLogo from "./assets/jenkins.svg";
 import muiLogo from "./assets/mui.svg";
 import nextLogo from "./assets/next.svg";
 import nodeLogo from "./assets/node.svg";
+import playwrightLogo from "./assets/playwright.svg";
 import pythonLogo from "./assets/python.svg";
 import railsLogo from "./assets/rails.svg";
 import reactLogo from "./assets/react.svg";
@@ -28,6 +30,7 @@ export type TechName =
 	| "astro"
 	| "aws"
 	| "bevy"
+	| "cypress"
 	| "d3"
 	| "express"
 	| "java"
@@ -35,6 +38,7 @@ export type TechName =
 	| "mui"
 	| "next"
 	| "node"
+	| "playwright"
 	| "python"
 	| "rails"
 	| "react"
@@ -77,6 +81,12 @@ export const TechMap: Record<TechName, Tech> = {
 		logo: bevyLogo.src,
 		highlightColor: "#B2B2B2",
 	},
+	cypress: {
+		name: "cypress",
+		alt: "Cypress Logo",
+		logo: cypressLogo.src,
+		highlightColor: "#1DAF7E",
+	},
 	d3: {
 		name: "d3",
 		alt: "D3 Logo",
@@ -118,6 +128,12 @@ export const TechMap: Record<TechName, Tech> = {
 		alt: "Node.js Logo",
 		logo: nodeLogo.src,
 		highlightColor: "#407E37",
+	},
+	playwright: {
+		name: "playwright",
+		alt: "Playwright Logo",
+		logo: playwrightLogo.src,
+		highlightColor: "#2EAD33",
 	},
 	python: {
 		name: "python",
