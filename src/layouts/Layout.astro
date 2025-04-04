@@ -1,4 +1,6 @@
 ---
+import Analytics from "@vercel/analytics/astro";
+
 import Container from "./Container.astro";
 
 import { backgroundColor, textColor } from "../colors";
@@ -14,6 +16,8 @@ import { backgroundColor, textColor } from "../colors";
 		<title>blythe white</title>
 	</head>
 	<body>
+		<Analytics />
+
 		<Container>
 			<slot></slot>
 		</Container>

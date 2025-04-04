@@ -24,8 +24,6 @@ const projects = (
 	) as MarkdownInstance<Project>[]
 ).filter((p) => p.frontmatter.hidden !== true);
 
-console.log(images);
-
 const getImage = (image: string) => {
 	const key = Object.keys(images).find((key) => key.includes(image));
 
