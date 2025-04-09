@@ -1,5 +1,5 @@
 ---
-company: 'gravity sickness'
+name: 'gravity sickness'
 type: 'Game (WIP)'
 image: 'gravity-sickness.png'
 techStack: ['rust', 'bevy']

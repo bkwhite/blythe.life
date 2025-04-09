@@ -1,5 +1,5 @@
 ---
-company: 'Occular'
+name: 'Occular'
 type: 'Application'
 image: 'occular.png'
 techStack: ['react', 'rust', 'bevy']

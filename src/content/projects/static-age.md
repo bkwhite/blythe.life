@@ -1,5 +1,5 @@
 ---
-company: 'Static Age Records'
+name: 'Static Age Records'
 type: 'Website'
 link: 'https://staticagenc.com'
 images: ['static-age.1.png', 'static-age.2.png']

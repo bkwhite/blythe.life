@@ -6,7 +6,7 @@ import { Image } from "astro:assets";
 import SiteSection from "../components/SiteSection.astro";
 
 interface Project {
-	company: string;
+	name: string;
 	type: string;
 	link: string;
 	images: string[];
@@ -42,7 +42,7 @@ const getImage = (image: string) => {
 				href={project.frontmatter.link}
 				target="_blank"
 				rel="noopener noreferrer">
-				<h3>🔗 {project.frontmatter.company}</h3>
+				<h3>🔗 {project.frontmatter.name}</h3>
 			</a>
 			<h5>{project.frontmatter.type}</h5>
 			<Content />
@@ -57,7 +57,7 @@ const getImage = (image: string) => {
 							class="project-image"
 							style={`box-shadow: ${project.frontmatter.highlightColor} 0 0 16px; height: auto;`}
 							src={gotImage()}
-							alt={project.frontmatter.company}
+							alt={project.frontmatter.name}
 						/>
 					)
 				})}

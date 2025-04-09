@@ -1,5 +1,5 @@
 ---
-company: 'TWL-60'
+name: 'TWL-60'
 type: 'Website'
 link: "https://twl-60.vercel.app/"
 images: ['twl-60.1.png', "twl-60.2.png"]
