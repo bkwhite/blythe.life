@@ -39,6 +39,7 @@ const getImage = (image: string) => {
 	>{projects.map(({ Content, ...project }) => (
 		<div class="project">
 			<a
+				class="name"
 				href={project.frontmatter.link}
 				target="_blank"
 				rel="noopener noreferrer">
@@ -79,6 +80,10 @@ const getImage = (image: string) => {
 
 	.project {
 		margin-bottom: calc(var(--basePadding) * 4);
+	}
+
+	.project > .name:hover {
+		color: #bbb;
 	}
 
 	.image-container {
