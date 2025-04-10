@@ -56,7 +56,7 @@ const getImage = (image: string) => {
 					return (
 						<Image
 							class="project-image"
-							style={`box-shadow: ${project.frontmatter.highlightColor} 0 0 16px; height: auto;`}
+							style={`box-shadow: ${project.frontmatter.highlightColor} 0 0 12px 2px; height: auto;`}
 							src={gotImage()}
 							alt={project.frontmatter.name}
 						/>
@@ -89,7 +89,7 @@ const getImage = (image: string) => {
 	.image-container {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
-		gap: 16px;
+		gap: 20px;
 		width: 100%;
 	}
 </style>
