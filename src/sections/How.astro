@@ -1,0 +1,12 @@
+---
+import SiteSection from "../components/SiteSection.astro";
+
+import * as how from "../content/how.md";
+
+const { Content } = how;
+---
+
+<SiteSection sectionName="how" noHeading>
+	<hr />
+	<Content />
+</SiteSection>

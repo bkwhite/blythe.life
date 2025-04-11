@@ -1,4 +1,5 @@
 ---
+import Hero from "../components/Hero.astro";
 import SiteSection from "../components/SiteSection.astro";
 
 import * as blythe from "../content/blythe.md";
@@ -28,12 +29,14 @@ const { Content } = blythe;
 		<h1>Blythe,</h1>
 		<h2>a <u>lovely</u> experience engineer.</h2>
 		<Content />
+		<Hero />
 		<a id="next-section-link" href="#">↓</a>
 	</div>
 </SiteSection>
 
 <style>
 	h1 {
+		font-size: 6rem;
 		background: #ffffff;
 		background: linear-gradient(to right, #aaaaaa 0%, #ffffff 100%);
 		-webkit-background-clip: text;
@@ -41,6 +44,9 @@ const { Content } = blythe;
 	}
 
 	h2 {
+		font-size: 2rem;
+		text-align: center;
+
 		border-bottom: 0;
 		text-transform: unset;
 
@@ -51,7 +57,11 @@ const { Content } = blythe;
 	}
 
 	.blythe-container {
-		text-align: center;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
+		text-align: justify;
 		padding-top: calc(var(--basePadding) * 4);
 		min-height: 100vh;
 		font-size: 24px;
@@ -66,6 +76,10 @@ const { Content } = blythe;
 		color: white;
 		font-size: 4rem;
 		animation: bounce 5s infinite;
+	}
+
+	p {
+		font-size: 1.5rem;
 	}
 
 	@keyframes bounce {
@@ -83,12 +97,17 @@ const { Content } = blythe;
 	}
 
 	@media screen and (max-width: 800px) {
+		h1 {
+			font-size: 4rem;
+		}
+
 		h2 {
 			font-size: 1.5rem;
 		}
 
 		.blythe-container {
-			font-size: 18px;
+			padding-top: calc(var(--basePadding) * 2);
+			font-size: 16px;
 		}
 	}
 </style>

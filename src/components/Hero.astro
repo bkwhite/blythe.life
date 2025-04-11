@@ -1,0 +1,198 @@
+---
+import type { TechName } from "../tech";
+import TechLogo from "./TechLogo.astro";
+
+// Tech stack configuration
+const techStack = [
+  { name: "node", position: "far-left", color: "#407E37" },
+  { name: "typescript", position: "left", color: "#6d9eeb" },
+  { name: "react", position: "middle", color: "#ffffff" },
+  { name: "next", position: "right", color: "#e3d7f4" },
+  { name: "rust", position: "far-right", color: "#DEA584" },
+];
+---
+
+<div class="hero-grid">
+  <div class="tech-container">
+    {techStack.map((tech) => (
+      <div
+        class={`tech-item ${tech.position}`}
+        style={`background-color: ${tech.color};`}
+      >
+        <TechLogo techName={tech.name as TechName} />
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  /* Main container */
+  .hero-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 250px; /* Reduced from 300px */
+    perspective: 2000px;
+    width: 100%;
+  }
+
+  /* Tech stack container */
+  .tech-container {
+    position: relative;
+    width: 60%;
+    max-width: 180px;
+    height: 140px;
+    transform-style: preserve-3d;
+    margin: 0 auto;
+  }
+
+  /* Base styles for all tech items */
+  .tech-item {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    backface-visibility: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    transition: all 0.5s ease-in-out;
+  }
+
+  /* Individual position styles */
+  .middle {
+    transform: translateZ(140px) scale(1);
+    z-index: 10;
+  }
+
+  .left {
+    transform: rotateY(15deg) translateX(-140px) translateZ(40px) scale(0.8);
+    z-index: 8;
+  }
+
+  .right {
+    transform: rotateY(-15deg) translateX(140px) translateZ(40px) scale(0.8);
+    z-index: 8;
+  }
+
+  .far-left {
+    transform: rotateY(25deg) translateX(-240px) translateZ(-40px) scale(0.6);
+    z-index: 6;
+  }
+
+  .far-right {
+    transform: rotateY(-25deg) translateX(240px) translateZ(-40px) scale(0.6);
+    z-index: 6;
+  }
+
+  /* Medium screens - responsive adjustments */
+  @media (max-width: 1200px) {
+    .left {
+      transform: rotateY(15deg) translateX(-160px) translateZ(40px) scale(0.8);
+    }
+    .right {
+      transform: rotateY(-15deg) translateX(160px) translateZ(40px) scale(0.8);
+    }
+    .far-left {
+      transform: rotateY(25deg) translateX(-260px) translateZ(-40px) scale(0.6);
+    }
+    .far-right {
+      transform: rotateY(-25deg) translateX(260px) translateZ(-40px) scale(0.6);
+    }
+  }
+
+  /* Tablet screens */
+  @media (max-width: 992px) {
+    .tech-container {
+      height: 180px;
+    }
+    .left {
+      transform: rotateY(15deg) translateX(-180px) translateZ(40px) scale(0.8);
+    }
+    .right {
+      transform: rotateY(-15deg) translateX(180px) translateZ(40px) scale(0.8);
+    }
+    .far-left {
+      transform: rotateY(25deg) translateX(-280px) translateZ(-40px) scale(0.6);
+    }
+    .far-right {
+      transform: rotateY(-25deg) translateX(280px) translateZ(-40px) scale(0.6);
+    }
+  }
+
+  /* Small tablet screens */
+  @media (max-width: 768px) {
+    .hero-grid {
+      min-height: 250px;
+    }
+    .tech-container {
+      height: 160px;
+      max-width: 160px;
+    }
+    .middle {
+      transform: translateZ(80px) scale(1);
+    }
+    .left {
+      transform: rotateY(12deg) translateX(-120px) translateZ(20px) scale(0.8);
+    }
+    .right {
+      transform: rotateY(-12deg) translateX(120px) translateZ(20px) scale(0.8);
+    }
+    .far-left {
+      transform: rotateY(18deg) translateX(-210px) translateZ(-20px) scale(0.6);
+    }
+    .far-right {
+      transform: rotateY(-18deg) translateX(210px) translateZ(-20px) scale(0.6);
+    }
+  }
+
+  /* Mobile screens */
+  @media (max-width: 480px) {
+    .hero-grid {
+      min-height: 180px;
+    }
+    .tech-container {
+      height: 100px;
+      max-width: 100px;
+    }
+    .middle {
+      transform: translateZ(40px) scale(1);
+    }
+    .left {
+      transform: rotateY(8deg) translateX(-70px) translateZ(10px) scale(0.8);
+    }
+    .right {
+      transform: rotateY(-8deg) translateX(70px) translateZ(10px) scale(0.8);
+    }
+    .far-left {
+      transform: rotateY(12deg) translateX(-120px) translateZ(-15px) scale(0.6);
+    }
+    .far-right {
+      transform: rotateY(-12deg) translateX(120px) translateZ(-15px) scale(0.6);
+    }
+  }
+
+  /* Small mobile screens */
+  @media (max-width: 360px) {
+    .hero-grid {
+      min-height: 150px;
+    }
+    .tech-container {
+      height: 90px;
+      max-width: 90px;
+      width: 80%;
+    }
+    .left {
+      transform: rotateY(8deg) translateX(-60px) translateZ(5px) scale(0.8);
+    }
+    .right {
+      transform: rotateY(-8deg) translateX(60px) translateZ(5px) scale(0.8);
+    }
+    .far-left {
+      transform: rotateY(12deg) translateX(-100px) translateZ(-15px) scale(0.6);
+    }
+    .far-right {
+      transform: rotateY(-12deg) translateX(100px) translateZ(-15px) scale(0.6);
+    }
+  }
+</style>

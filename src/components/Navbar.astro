@@ -1,7 +1,7 @@
 ---
 import githubIcon from "../assets/github.svg";
 import linkedinIcon from "../assets/linkedin.svg";
-
+import menuIcon from "../assets/menu.svg";
 import {
 	contentWidth,
 	basePadding,
@@ -10,16 +10,31 @@ import {
 } from "../colors";
 
 const links = [
-	{ label: "blythe", href: "#blythe" },
 	{ label: "skills", href: "#skills" },
 	{ label: "experiences", href: "#experiences" },
 	{ label: "projects", href: "#projects" },
 	{ label: "blog", href: "https://blyte.town" },
 ];
+
+const socialLinks = [
+	{
+		platform: "GitHub",
+		href: "https://github.com/bkwhite",
+		icon: githubIcon,
+	},
+	{
+		platform: "LinkedIn",
+		href: "https://linkedin.com/in/blythewhite/",
+		icon: linkedinIcon,
+	},
+];
 ---
 
 <nav class="white-box glow">
-	<ul>
+	<input type="checkbox" id="nav-toggle" class="toggle-nav" />
+	<a class="blythe" href="#blythe">blythe</a>
+
+	<ul class="nav-links">
 		{links.map((link) => (
 			<li>
 				{link.href.includes("#") ? (
@@ -28,7 +43,7 @@ const links = [
 					</a>
 				) : (
 					<a
-						href={`${link.href}`}
+						href={link.href}
 						target="_blank"
 						rel="noopener noreferrer"
 						class="text-link">
@@ -37,37 +52,49 @@ const links = [
 				)}
 			</li>
 		))}
+
+		{socialLinks.map((social) => (
+			<li>
+				<a
+					href={social.href}
+					target="_blank"
+					rel="noopener noreferrer"
+					class="icon-link">
+					<img src={social.icon.src} alt={social.platform} />
+				</a>
+			</li>
+		))}
+
 		<li>
-			<a
-				href="https://github.com/bkwhite"
-				target="_blank"
-				rel="noopener noreferrer"
-				class="icon-link">
-				<img src={githubIcon.src} alt="GitHub" />
+			<a class="resume-button" href="/blythe.white.pdf" target="_blank">
+				resume ▼
 			</a>
 		</li>
-		<li>
-			<a
-				href="https://linkedin.com/in/blythewhite/"
-				target="_blank"
-				rel="noopener noreferrer"
-				class="icon-link">
-				<img src={linkedinIcon.src} alt="LinkedIn" />
-			</a>
-		</li>
-		<a class="resume-button" href="/blythe.white.pdf" target="_blank"
-			>resume ▼
-		</a>
 	</ul>
+
+	<label for="nav-toggle" class="menu-icon">
+		<img
+			class="menu-icon"
+			width="24"
+			height="24"
+			src={menuIcon.src}
+			alt="Menu"
+		/>
+	</label>
 </nav>
 
 <style define:vars={{ contentWidth, basePadding, textColor, backgroundColor }}>
 	nav {
+		position: relative;
 		background-color: var(--textColor);
 		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 24px;
 	}
 
-	ul {
+	.nav-links {
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -79,10 +106,6 @@ const links = [
 		list-style: none;
 		font-weight: 500;
 		margin: 0;
-	}
-
-	li > a > img {
-		width: 24px;
 	}
 
 	a {
@@ -105,34 +128,70 @@ const links = [
 		justify-content: center;
 	}
 
+	li > a > img {
+		width: 24px;
+	}
+
 	.resume-button {
 		background-color: var(--backgroundColor);
 		color: var(--textColor);
-		padding: 8px 16px;
+		padding: 10px 16px;
 		border-radius: 4px;
 		text-decoration: none;
 		font-weight: bold;
+	}
+
+	.toggle-nav {
+		display: none;
+	}
+
+	.menu-icon {
+		display: none;
+		cursor: pointer;
+		padding: 0.5rem;
+	}
+
+	@media screen and (max-width: 768px) {
+		nav {
+			justify-content: space-between;
+		}
+
+		.blythe {
+			margin-left: 24px;
+		}
+
+		.menu-icon {
+			display: block;
+		}
+
+		.nav-links {
+			position: absolute;
+			top: 100%;
+			left: 0;
+			right: 0;
+			flex-direction: column;
+			background-color: #f0f0f0;
+			max-height: 0;
+			overflow: hidden;
+			transition: all 0.5s ease;
+			margin-block-start: 0;
+			opacity: 0;
+		}
+
+		.toggle-nav:checked ~ .nav-links {
+			padding-top: 24px;
+			padding-bottom: 28px;
+			max-height: 60vh;
+			opacity: 1;
+		}
 	}
 
 	@keyframes underline-anime {
 		0% {
 			width: 0%;
 		}
-
 		100% {
 			width: 90%;
-		}
-	}
-
-	/* iPhone SE */
-	@media screen and (max-width: 800px) {
-		nav {
-			width: 100%;
-		}
-
-		ul {
-			flex-wrap: wrap;
-			padding: var(--basePadding);
 		}
 	}
 </style>
