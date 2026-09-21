@@ -1,6 +1,7 @@
 import astroLogo from "./assets/astro.svg";
 import awsLogo from "./assets/aws.svg";
 import bevyLogo from "./assets/bevy.svg";
+import cursorLogo from "./assets/cursor.svg";
 import cypressLogo from "./assets/cypress.svg";
 import d3Logo from "./assets/d3.svg";
 import expressLogo from "./assets/express.svg";
@@ -29,7 +30,8 @@ import graduationCapLogo from "./assets/graduation-cap.svg";
 export type TechName =
 	| "astro"
 	| "aws"
-	| "bevy"
+  | "bevy"
+	| "cursor"
 	| "cypress"
 	| "d3"
 	| "express"
@@ -80,6 +82,12 @@ export const TechMap: Record<TechName, Tech> = {
 		alt: "Bevy Logo",
 		logo: bevyLogo.src,
 		highlightColor: "#B2B2B2",
+	},
+  cursor: {
+    name: "cypress",
+		alt: "Cursor Logo",
+		logo: cursorLogo.src,
+		highlightColor: "#CCC",
 	},
 	cypress: {
 		name: "cypress",
