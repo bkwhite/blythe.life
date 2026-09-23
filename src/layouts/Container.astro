@@ -11,7 +11,7 @@ import Navbar from "../components/Navbar.astro";
 	<Navbar />
 
 	<main>
-		<slot></slot>
+		<slot />
 	</main>
 </div>
 
@@ -46,20 +46,15 @@ import Navbar from "../components/Navbar.astro";
 	}
 
 	@media screen and (max-width: 1024px) {
-		:root {
-			--contentWidth: ;
-		}
-
 		main {
 			width: calc(var(--contentWidth) - 100px);
 		}
 	}
 
 	/* iPhone SE */
-	@media screen and (max-width: 600px) {
+	@media screen and (max-width: 750px) {
 		main {
 			width: 100%;
-			//padding: calc(var(--basePadding) * 3);
 		}
 
 		#container {
